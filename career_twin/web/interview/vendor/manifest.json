@@ -1,0 +1,21 @@
+{
+  "revision": "4467e97cd97194c2c54762043cf121c6d313db12",
+  "source": "https://github.com/kleinlee/DH_live",
+  "scope": "Local mini2 runtime; original upstream retained, own-character clean variant explicitly requested by user; authorization metadata unchanged",
+  "patches": [
+    "DHLiveMini.js createNamedFunction avoids JS eval; no neural algorithm change",
+    "MiniMateLoader.js auto-init replaced by explicit diagnostic bootstrap",
+    "MiniLive2.js size from validated metadata; same shader/crop/processImage/pasteback; fail on incompatible runtime",
+    "DHLiveMini.clean.wasm: processImage extracts face output 181 instead of labelled output 196; one code byte changed, model data unchanged; recipe scripts/build_mini2_clean_runtime.py"
+  ],
+  "files": {
+    "DHLiveMini.wasm": "7199459b6599a14190aa603d1859f9303fda004e4b78d3206907356d38094783",
+    "DHLiveMini.clean.wasm": "612c51f27342f79bd6dfa602044514713ca9d277c0257c533871b96fcedb14f3",
+    "assets\\01.mp4": "b70c76468c3383a4e9f2afeed1f73568de52dad17c02d9cbaa64608c05d77934",
+    "assets\\combined_data.json.gz": "6c12fbd0ac5bf9f7f5f43100bb7caa5f4cfb5e37c86232f2f977b5397588561d",
+    "common\\bs_texture_halfFace.png": "37c5b168b3b2745219cc8bd158f6052f7ae8dd1013dc9f9e5e86649d7b03a8fb",
+    "js\\DHLiveMini.js": "c52f2fef1d9b1cbf14d6123c94dfaf7df5004b0f6066962ebb7aac3eba785928",
+    "js\\MiniMateLoader.js": "d419900940cd1668dccc34ca5370a9a6594ccc9967c0c10a5808dd2f44301bf2",
+    "js\\pako.min.js": "59020f613e4f7d3bf11e8f6ac30ecaa15e2079f4fab1574487f029039d1da9d0"
+  }
+}

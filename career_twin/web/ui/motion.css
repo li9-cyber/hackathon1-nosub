@@ -1,0 +1,56 @@
+/* Animation can be replaced without editing feature code. */
+button,a,input,textarea,select,summary{transition:background-color var(--motion-fast) ease,border-color var(--motion-fast) ease,color var(--motion-fast) ease,opacity var(--motion-fast) ease}
+button:active:not(:disabled){transform:translateY(1px)}
+[data-reveal].reveal-pending{opacity:0;transform:translateY(16px)}
+[data-reveal]{transition:opacity var(--motion-reveal) var(--ease-out),transform var(--motion-reveal) var(--ease-out)}
+.view-enter{animation:view-enter var(--motion-normal) var(--ease-out)}
+dialog[open]{animation:dialog-enter var(--motion-normal) var(--ease-out)}
+details[open]>:not(summary){animation:view-enter var(--motion-normal) var(--ease-out)}
+body[aria-busy=true] #notice::before{content:"";display:inline-block;width:24px;height:24px;margin-right:10px;vertical-align:-7px;background:url("../brand/icon-light.svg") center/contain no-repeat;animation:brand-breathe 1400ms ease-in-out infinite}
+.hero-copy>.eyebrow,.hero-copy>h1,.hero-copy>.lead,.hero-copy>.landing-actions,.hero-footnote{animation:hero-arrive 850ms var(--ease-out) both}
+.hero-copy>h1{animation-delay:70ms}.hero-copy>.lead{animation-delay:140ms}.hero-copy>.landing-actions{animation-delay:210ms}.hero-footnote{animation-delay:280ms}
+.journey-sheet{animation:sheet-arrive 1000ms var(--ease-out) both}.journey-sticker{animation:sticker-arrive 1100ms var(--ease-out) 180ms both}
+.journey-focus>[data-flow-panel]:not([hidden]){animation:flow-arrive 420ms var(--ease-out)}
+.feature-story{transition:transform var(--motion-normal) var(--ease-out),box-shadow var(--motion-normal) ease,border-color var(--motion-normal) ease}
+.feature-story:focus-within{transform:translateY(-4px);box-shadow:var(--shadow-float);border-color:var(--accent)}
+.feature-story button{transition:gap var(--motion-fast) ease,color var(--motion-fast) ease}
+.marketing-nav>a::after{content:"";position:absolute;left:0;right:0;bottom:5px;height:2px;border-radius:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform var(--motion-normal) var(--ease-out)}
+.marketing-nav>a:focus-visible::after{transform:scaleX(1)}
+:is(button,a) :is([data-icon=arrow],.next-arrow,.down-arrow){display:inline-flex;transition:transform var(--motion-normal) var(--ease-out)}
+:is(button,a):focus-visible [data-icon=arrow]{transform:translateX(4px)}
+:is(button,a):focus-visible .next-arrow{transform:translate(3px,-3px)}
+:is(button,a):focus-visible .down-arrow{transform:translateY(4px)}
+:is(.workspace-nav,.sidebar-footer) button [data-icon]{display:inline-flex;transform-origin:center;transition:transform var(--motion-normal) var(--ease-out)}
+:is(.workspace-nav,.sidebar-footer) button:focus-visible [data-icon]{animation:nav-icon-nudge 420ms var(--ease-out)}
+.theme-toggle .icon{transition:transform 300ms var(--ease-out)}
+.theme-toggle:active .icon{transform:rotate(30deg) scale(.9)}
+.product-leaving :is(.marketing-header,#view-product){animation:product-exit 220ms var(--ease-out) both;pointer-events:none}
+.product-leaving{overflow-x:clip}
+@media(hover:hover) and (pointer:fine){
+ .feature-story:hover{transform:translateY(-4px);box-shadow:var(--shadow-float);border-color:var(--accent)}
+ .feature-story:hover [data-icon=arrow],:is(button,a):hover [data-icon=arrow]{transform:translateX(4px)}
+ :is(button,a):hover .next-arrow{transform:translate(3px,-3px)}
+ :is(button,a):hover .down-arrow{transform:translateY(4px)}
+ .marketing-nav>a:hover::after{transform:scaleX(1)}
+ .landing-actions button:hover{transform:translateY(-2px)}
+ :is(.workspace-nav,.sidebar-footer) button:hover [data-icon]{animation:nav-icon-nudge 420ms var(--ease-out)}
+ :is(.workspace-nav,.sidebar-footer) button:hover [data-icon=settings]{transform:rotate(35deg);animation:none}
+}
+:is(button,a):active [data-icon=arrow]{transform:translateX(3px)}
+:is(button,a):active .next-arrow{transform:translate(2px,-2px)}
+:is(button,a):active .down-arrow{transform:translateY(3px)}
+:is(.workspace-nav,.sidebar-footer) button:active [data-icon]{transform:scale(.88)}
+@keyframes product-exit{to{opacity:0;transform:translateY(-18px)}}
+@keyframes nav-icon-nudge{40%{transform:translateY(-3px) rotate(-7deg)}75%{transform:translateY(1px) rotate(3deg)}to{transform:none}}
+@keyframes hero-arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sheet-arrive{from{opacity:0;transform:translateY(22px) rotate(2deg)}to{opacity:1;transform:translateY(0) rotate(-1deg)}}
+@keyframes sticker-arrive{from{opacity:0;translate:0 16px}to{opacity:1;translate:0 0}}
+@keyframes flow-arrive{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes brand-breathe{50%{opacity:.45;transform:translateY(-2px)}}
+@keyframes view-enter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dialog-enter{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:480px){.journey-sheet{animation-name:hero-arrive}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}[data-reveal].reveal-pending{opacity:1;transform:none}.feature-story:hover,.landing-actions button:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.feature-story:focus-within,:is(button,a) :is([data-icon],.next-arrow,.down-arrow){transform:none!important}}
+

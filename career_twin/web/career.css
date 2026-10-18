@@ -1,0 +1,23 @@
+@import url("features/profile/profile.css");
+@import url("ui/features.css");
+/* Compact search rows and one accessible native detail drawer. */
+.job-compact{position:relative;padding:1rem 3.5rem 1rem 1.25rem!important;display:block!important;margin:0!important;min-width:0}
+.job-compact .job-open{display:block;text-align:left;background:none;border:0;padding:0;color:var(--text,#26352e);font:inherit;font-size:1.05rem;font-weight:650;white-space:normal;overflow-wrap:anywhere;box-shadow:none}
+.job-compact .job-open:hover{text-decoration:underline}
+.job-compact p{margin:.35rem 0 0;font-size:.88rem}.job-compact-status{color:var(--muted,#66746c)}
+.job-original-arrow{position:absolute;top:1rem;right:1rem;padding:.35rem;font-size:1.25rem}
+.job-results{display:grid;gap:.6rem}.job-results>.hint{margin:.3rem 0}
+.job-detail-drawer{position:fixed;inset:0 0 0 auto;margin:0;width:min(660px,95vw);max-width:100vw;height:100dvh;max-height:100dvh;border:0;border-left:1px solid var(--border,#dce2dc);border-radius:18px 0 0 18px;padding:0;background:var(--surface,#fff);color:var(--text,#26352e);overflow:auto;box-shadow:-12px 0 50px #0002}
+.job-detail-drawer::backdrop{background:#17231c66}.job-detail-header{position:sticky;top:0;z-index:1;padding:1.3rem 1.5rem;background:inherit;display:flex;gap:1rem;justify-content:space-between;border-bottom:1px solid var(--border,#dce2dc)}
+.job-detail-header h2{font-size:1.4rem;margin:0;overflow-wrap:anywhere}.job-detail-header p{margin:.35rem 0}.job-detail-controls{display:flex;align-items:flex-start;gap:.75rem;flex-shrink:0}.job-detail-controls a{font-size:1.4rem;padding:.3rem}
+.job-detail-body{padding:1.2rem 1.5rem}.job-detail-body .job-content-group{margin:1.5rem 0;border:0;padding:0}.job-detail-body .job-requirement{border:0;border-bottom:1px solid var(--border,#dce2dc);border-radius:0;background:none;padding:.8rem 0;gap:1rem}.job-detail-body .match-met .job-requirement-label{background:#68a47c1a;border-radius:4px;padding:2px 4px}.job-detail-body .match-not_met .requirement-status{color:#a56536}.job-detail-body .match-unknown .requirement-status{color:var(--muted,#66746c)}
+.job-detail-body .job-evidence{font-size:.85rem;margin-top:.4rem}.job-detail-body .job-evidence blockquote{margin:.5rem 0;padding:.4rem .7rem;overflow-wrap:anywhere}.job-detail-loading{min-height:120px;padding:1rem;background:var(--surface-alt,#f4f6f3);border-radius:12px}
+[data-theme=dark] .job-detail-drawer{background:#202925;color:#edf2ed}[data-theme=dark] .job-compact .job-open{color:#edf2ed}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .job-detail-drawer{background:#202925;color:#edf2ed}:root:not([data-theme=light]) .job-compact .job-open{color:#edf2ed}}
+@media(max-width:600px){.job-detail-drawer{width:100vw;border-radius:0}.job-detail-header,.job-detail-body{padding:1rem}.job-detail-header{position:relative}.job-detail-controls{gap:.3rem}.job-detail-body .job-requirement{flex-wrap:wrap}.job-compact{padding:1rem 3rem 1rem 1rem!important}}
+/* Scope overrides above the existing workspace requirement styles. */
+.job-detail-drawer .job-detail-body .job-requirement{background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:.8rem 0}
+.job-detail-drawer .job-detail-body .match-unknown>.requirement-status{color:var(--muted);background:var(--surface-raised)}
+.job-detail-drawer .job-detail-body .match-not_met>.requirement-status{color:#9d6439;background:#a36c3812}
+.job-detail-drawer .job-detail-body .match-met>.requirement-status{color:#377451;background:#54946c15}
+.job-relevance-list{display:grid;gap:12px}.job-relevance-item{padding:12px;border:1px solid var(--line);border-radius:8px}.job-relevance-item summary{cursor:pointer}.job-relevance-status{display:block;color:var(--muted);font-size:14px;margin:6px 0}

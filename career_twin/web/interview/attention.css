@@ -1,0 +1,86 @@
+/* Shared studio layout: the avatar owns the available space; controls stay reachable. */
+.interview-layout{grid-template-columns:minmax(0,1fr);gap:20px}
+.interview-stage,.interview-media{min-width:0;min-height:0}
+.general-voice{max-width:none}
+.general-voice .interview-card{min-height:0}
+.interview-card{max-width:none}
+.interview-avatar{aspect-ratio:auto;height:clamp(300px,calc(100vh - 300px),640px);height:clamp(300px,calc(100svh - 300px),640px)}
+.interview-avatar iframe{width:100%;height:100%;display:block}
+.interview-controls{display:flex;flex-wrap:wrap;gap:12px 20px;padding:16px 20px}
+.interview-controls p{flex:1 1 150px;font-size:.9375rem;line-height:1.5}
+.interview-actions{display:flex;flex-wrap:wrap;gap:8px;min-width:0;flex-shrink:1}
+.interview-actions button{font-size:.9375rem;min-height:44px;white-space:normal}
+.interview-note{font-size:.875rem;line-height:1.7;margin:12px 0}
+:is(#view-interview,#view-practice)>.lead{margin-bottom:20px;max-width:65ch}
+.with-attention .interview-media{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,380px);align-items:stretch;height:clamp(380px,65vh,660px);height:clamp(380px,65svh,660px)}
+.with-attention .interview-avatar{height:100%;min-height:0}
+.interview-support{padding:20px;background:var(--surface);border-left:1px solid var(--line);min-width:0;min-height:0;font-size:.9375rem;overflow-wrap:anywhere;overflow-y:auto;overscroll-behavior:contain}
+.attention-heading{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.attention-heading h2{font-size:1.125rem;margin:0}.attention-heading .eyebrow{font-size:.75rem;margin:0 0 5px}
+.interview-attention .hint{font-size:.875rem;line-height:1.7;margin:10px 0}
+.interview-attention select{width:100%;margin:5px 0 12px;font-size:1rem}
+.attention-camera{position:relative;aspect-ratio:16/9;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-raised);margin-bottom:12px}
+.attention-camera video,.attention-camera canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform:scaleX(-1)}
+.attention-buttons{display:flex;flex-wrap:wrap;gap:8px}.attention-buttons button{font-size:.875rem;white-space:normal;line-height:1.5;min-height:44px}
+.attention-calibration{padding:14px;margin:14px 0;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-raised)}
+.attention-calibration p{font-size:.875rem;line-height:1.7}.attention-calibration strong{color:var(--accent)}
+.attention-readout{border-top:1px solid var(--line);padding-top:12px;margin-top:14px}.attention-readout p{font-size:.875rem;margin:6px 0;line-height:1.7}
+#gaze-state{font-weight:600;color:var(--accent)}.attention-details{font-size:.875rem}.attention-details pre{white-space:pre-wrap;font-size:.8125rem;line-height:1.8;color:var(--muted)}
+.interview-fullscreen-active{overflow:hidden;overscroll-behavior:none}
+.interview-card.is-fullscreen{inset:0 0 auto;height:100vh;height:var(--interview-viewport-height,100dvh);min-height:0;padding-top:env(safe-area-inset-top,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+.interview-card:fullscreen{height:100%}
+.interview-card:-webkit-full-screen{height:100%}
+.interview-card.is-fullscreen .interview-media{flex:1 1 0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);height:auto;min-height:0;overflow:hidden}
+.interview-card.is-fullscreen.with-attention .interview-media{grid-template-columns:minmax(0,1fr) minmax(320px,380px)}
+.interview-card.is-fullscreen .interview-avatar{position:relative;width:100%;height:100%;min-height:0;aspect-ratio:auto}
+.interview-card.is-fullscreen .interview-support{width:auto;min-height:0;overflow-y:auto}
+.interview-card.is-fullscreen .interview-controls{flex:0 0 auto;margin:0;padding:12px 20px;padding-bottom:max(12px,env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+.interview-card.is-fullscreen .error{max-height:20vh;overflow-y:auto;margin:0;padding:10px 16px}
+@media(max-width:899px){
+ .with-attention .interview-media{grid-template-columns:minmax(0,1fr);height:auto}
+ .with-attention .interview-avatar{height:clamp(260px,45svh,480px)}
+ .interview-support{border-left:0;border-top:1px solid var(--line);padding:16px;max-height:420px}
+ .attention-camera{max-width:320px}
+}
+@media(max-width:899px) and (orientation:portrait){
+ .interview-card.is-fullscreen.with-attention .interview-media{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) minmax(0,42%)}
+ .interview-card.is-fullscreen .interview-support{max-height:none}
+}
+@media(max-width:600px){
+ .interview-controls,.interview-card.is-fullscreen .interview-controls{padding:12px;gap:10px;padding-bottom:max(12px,env(safe-area-inset-bottom,0px))}
+ .interview-controls p{flex-basis:100%;font-size:.875rem}
+ .interview-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;gap:6px}
+ .interview-actions button{padding:10px 6px;font-size:.875rem;line-height:1.4}
+ .interview-avatar{height:clamp(280px,52vh,520px);height:clamp(280px,52svh,520px)}
+ body:is([data-page=interview],[data-page=practice]) .app-main{padding-top:20px;padding-bottom:24px}
+}
+@media(orientation:landscape) and (max-height:540px){
+ .interview-card.is-fullscreen .interview-controls{flex-wrap:nowrap;gap:10px;padding-top:8px;padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}
+ .interview-card.is-fullscreen .interview-controls p{flex:1 1 100px}
+ .interview-card.is-fullscreen .interview-actions{display:flex;width:auto;flex-wrap:nowrap}
+ .interview-card.is-fullscreen.with-attention .interview-media{grid-template-columns:minmax(0,1fr) minmax(240px,35%)}
+ .interview-card.is-fullscreen .interview-support{border-top:0;border-left:1px solid var(--line);max-height:none}
+}
+
+.interview-support>section+section,.interview-attention{border-top:1px solid var(--line);padding-top:20px;margin-top:20px}
+.interview-transcript-panel h2{font-size:1.125rem;margin:0 0 12px}
+.interview-transcript{min-height:90px;max-height:230px;overflow-y:auto;white-space:pre-wrap;line-height:1.8;padding:16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface-raised);font-size:1rem;overflow-wrap:anywhere}
+.interview-recording{display:flex;align-items:center;gap:10px;padding:12px;margin:14px 0 0;border:1px solid var(--line);border-radius:var(--radius-sm);font-size:.875rem;line-height:1.5}
+.interview-recording svg{width:24px;height:24px;flex:none}
+.interview-answer-clock{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0;font-size:.875rem;color:var(--muted)}
+.interview-answer-clock strong{font-size:1.75rem;line-height:1.2;font-variant-numeric:tabular-nums;color:var(--text)}
+.interview-answer-clock strong.is-urgent{color:var(--accent)}
+.interview-recording[data-state=listening],.interview-recording[data-state=recording]{border-color:var(--accent);color:var(--accent);background:var(--surface-raised)}
+.interview-recording[data-state=recording] svg{animation:interview-mic-pulse 1.2s ease-in-out infinite}
+@keyframes interview-mic-pulse{50%{opacity:.4;transform:scale(.88)}}
+.interview-support .interview-controls,.interview-card.is-fullscreen .interview-support .interview-controls{padding:12px 0 0;border:0;gap:10px;display:block}
+.interview-support .interview-actions{display:flex;flex-wrap:wrap;margin-top:12px}
+.interview-support .interview-actions button{flex:1 1 auto}
+.interview-support .interview-controls .hint{font-size:.8125rem;margin:12px 0;line-height:1.7}
+.interview-options{padding:12px 0;border-top:1px solid var(--line)}
+.interview-options label{font-size:.875rem;margin-top:12px}
+.interview-options select{width:100%}
+.interview-support .error{margin:12px 0}
+@media(prefers-reduced-motion:reduce){.interview-recording[data-state=recording] svg{animation:none}}
+
+body[data-page=practice] #pilot-interview{display:none}

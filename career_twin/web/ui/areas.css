@@ -1,0 +1,52 @@
+/* Three task areas, sharing the existing soft blue and sand theme tokens. */
+.area-shell{margin-bottom:26px}.area-shell>h2{font-size:28px;letter-spacing:-.7px;margin:6px 0 22px}
+.area-tabs{display:flex;flex-wrap:wrap;gap:6px;padding:6px;background:var(--zone-gray);border-radius:12px;margin-bottom:26px}
+.area-tabs button{background:transparent;color:var(--muted);box-shadow:none;border:0;padding:10px 17px;font-size:14px;font-weight:500;border-radius:8px}
+.area-tabs button[aria-current=page]{background:var(--surface);color:var(--text);box-shadow:0 2px 6px #00000008}
+.area-tabs button:hover{color:var(--text);background:var(--surface)}
+.job-area-navigation{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.job-area-home{display:flex;align-items:center;gap:16px;padding:14px 22px;border-radius:12px;font-size:20px;background:var(--surface);color:var(--text);border:1px solid var(--border-strong)}
+.job-area-home small{font-size:14px;color:var(--muted);font-weight:400}
+.job-area-home[aria-current=page]{background:var(--zone-blue)}
+.job-area-children{width:calc(100% - 20px);margin:0 0 0 20px;border-left:3px solid var(--border-strong);border-radius:0 12px 12px 0;padding:8px 12px}
+.job-area-children button{font-size:16px;padding:12px 18px}
+#job-analysis-home .job-skill-chips{display:flex;flex-wrap:wrap;gap:10px;max-height:none}
+#job-analysis-home .job-skill-chip{font-size:17px;padding:10px 14px;white-space:normal;overflow-wrap:anywhere}
+@media(max-width:540px){.job-area-children{width:100%;margin-left:0}.job-area-children button{flex:1 1 42%}.job-area-home{width:100%;justify-content:space-between}}
+
+#job-area-shell+.view{min-width:0}
+body:is([data-page=jobs],[data-page=analysis],[data-page=applications],[data-page=roadmap],[data-page=planning],[data-page=legacy]) .view>h1{font-size:24px}
+body:is([data-page=jobs],[data-page=applications],[data-page=roadmap]) .view>.eyebrow{display:none}
+.basic-exploration{background:var(--zone-blue);padding:28px 30px;border-radius:16px;margin:20px 0}.basic-exploration p{max-width:720px;color:var(--muted)}.basic-exploration a{display:inline-flex;text-decoration:none;padding:10px 16px;border-radius:8px}
+.job-card>.button-primary{margin:18px 0 0}.job-card .toolbar{padding-top:12px}.job-card>.toolbar button{font-size:13px}
+#project-profile{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,.44fr);align-items:center;padding:32px 36px;gap:36px;margin-top:24px}
+#project-profile h2{line-height:1.45;max-width:600px}#project-profile .button-primary{margin-top:12px}.overview-cv-status{padding-left:24px;border-left:1px solid var(--border-strong)}.overview-cv-status p{line-height:1.8}
+#project-features{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px;margin-bottom:36px}
+#project-features article{padding:24px 28px;border-radius:16px;min-width:0;background:var(--surface)}#project-features h3{overflow-wrap:anywhere;font-size:20px}#project-features p{font-size:14px}#project-features small{color:var(--subtle);display:block;margin:4px 0 12px}
+#project-features .overview-application{background:var(--zone-sand)}
+#project-nav button{padding-top:11px;padding-bottom:11px}#project-nav button:first-child{margin-bottom:12px}
+.roadmap-footer{margin-top:32px;padding:24px;border-radius:16px;background:var(--zone-sand)}
+#view-analysis .condition{background:var(--zone-gray);border:0;border-radius:12px;padding:20px;margin:12px 0}
+#view-analysis .job-card,#view-jobs>.panel{border-color:transparent;border-radius:16px}
+@media(max-width:800px){#project-profile{padding:28px;gap:24px;grid-template-columns:1fr}.overview-cv-status{padding:20px 0 0;border-left:0;border-top:1px solid var(--border-strong)}.overview-cv-status p{margin-bottom:4px}.area-tabs button{flex:1;padding:10px 12px}}
+@media(max-width:540px){#project-features{grid-template-columns:1fr;gap:14px}#project-profile{padding:25px}#project-features article{padding:22px}.area-shell>h2{font-size:26px}.area-tabs{gap:3px}.area-tabs button{font-size:13px;flex-basis:42%;min-width:0}.basic-exploration{padding:24px}}
+
+.cv-search-action{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:16px 0}.cv-search-action .hint{margin:0}.cv-search-action>.action-feedback{flex-basis:100%}
+
+/* The same gentle surface response across workspace cards; forms never shift. */
+.workspace-emblem{min-height:252px;padding:30px 22px;gap:8px}
+.app-main :is(.job-card-v2,.cv-evidence-card){transition:border-color 200ms var(--ease-out),box-shadow 200ms var(--ease-out)}
+.app-main :is(.job-card-v2,.cv-evidence-card):is(:hover,:focus-within){border-color:var(--accent);box-shadow:var(--shadow-float)}
+.workspace-emblem .emblem-orbit{inset:0;border-radius:50%;transform:none}
+.workspace-emblem .emblem-caption{margin-top:4px;position:relative;max-width:100%;text-wrap:balance}
+.workspace-welcome{grid-template-columns:minmax(0,1fr) 252px;align-items:center}
+:is(.project-profile,.general-tool-strip,.context-empty,#project-features article){border:1px solid transparent}
+.app-main :is(.panel,.project-profile,.project-card,.project-feature,.overview-target,.overview-application,.general-tool-strip,.context-empty,.profile-result-section,.profile-next-options,.company-card,.job-card,.capability-card,.workspace-empty,.roadmap-footer){transition:border-color 200ms var(--ease-out),box-shadow 200ms var(--ease-out),transform 200ms var(--ease-out)}
+.app-main :is(.panel,.project-profile,.project-card,.project-feature,.overview-target,.overview-application,.general-tool-strip,.context-empty,.profile-result-section,.profile-next-options,.company-card,.job-card,.capability-card,.workspace-empty,.roadmap-footer):focus-within{border-color:var(--accent);box-shadow:var(--shadow-float)}
+@media(hover:hover) and (pointer:fine){
+ .app-main :is(.panel,.project-profile,.project-card,.project-feature,.overview-target,.overview-application,.general-tool-strip,.context-empty,.profile-result-section,.profile-next-options,.company-card,.job-card,.capability-card,.workspace-empty,.roadmap-footer):hover{border-color:var(--accent);box-shadow:var(--shadow-float)}
+ .app-main :is(.project-profile,.project-card,.project-feature,.overview-target,.overview-application,.profile-result-section,.company-card,.capability-card):hover:not(:focus-within){transform:translateY(-3px)}
+}
+@media(max-width:1100px){.workspace-welcome{grid-template-columns:minmax(0,1fr) 218px}.workspace-emblem{min-height:228px;padding:28px 18px}}
+@media(max-width:680px){.workspace-welcome{grid-template-columns:1fr}.workspace-emblem{display:none}}
+@media(prefers-reduced-motion:reduce){.app-main :is(.panel,.project-profile,.project-card,.project-feature,.overview-target,.overview-application,.general-tool-strip,.context-empty,.profile-result-section,.profile-next-options,.company-card,.job-card,.capability-card,.workspace-empty,.roadmap-footer){transition:none;transform:none!important}}

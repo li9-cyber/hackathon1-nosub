@@ -1,0 +1,14 @@
+{
+  "purpose": "User-requested local rendering without the mouth label",
+  "source": "vendor\\dh-live-mini2\\DHLiveMini.wasm",
+  "source_sha256": "7199459b6599a14190aa603d1859f9303fda004e4b78d3206907356d38094783",
+  "derived": "vendor\\dh-live-mini2\\DHLiveMini.clean.wasm",
+  "derived_sha256": "612c51f27342f79bd6dfa602044514713ca9d277c0257c533871b96fcedb14f3",
+  "modified_byte_offset": 38183,
+  "before_hex": "c4",
+  "after_hex": "b5",
+  "function": "processImage",
+  "change": "Extract face tensor 181 instead of labelled tensor 196",
+  "character_authorization_metadata_modified": false,
+  "original_preserved": true
+}

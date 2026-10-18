@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head><script src="/static/services/base-path.js"></script><script src="/static/ui/theme.js"></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="/static/brand/favicon.svg?v=cv-arrow-1"><meta name="theme-color" content="#f7f8f5"><title>行動與成果 · Finance Career</title>
+  <link rel="stylesheet" href="/static/style.css"><script src="/static/ui/feedback.js" defer></script><script src="/static/app.js" defer></script>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="/" aria-label="重新整理首頁，清除本頁資料"><span class="brand-mark"><img src="/static/brand/icon-light.svg?v=cv-arrow-1" alt="" width="36" height="36"></span><span>Finance Career <small>行動工作區</small></span></a>
+<div class="toolbar"><button id="cancel-request" type="button" class="button-quiet" data-keep-enabled hidden>取消等待</button><button id="clear-all" type="button" class="button-quiet" data-keep-enabled>清除全部</button></div></header>
+<main>
+<div class="topline"><span class="eyebrow">從經歷出發・以材料作判斷</span><span id="health" class="health">正在確認服務狀態…</span></div>
+<p id="legacy-storage-note" class="privacy-note">資料只保留在目前頁面，重新整理或關閉會清除。需要 AI 的整理、對照、比較及練習會傳送內容至 DeepSeek API；請先移除不必要個人資料。</p>
+<div id="notice" class="notice" role="status" aria-live="polite" hidden></div><div id="error" class="error" role="alert" hidden></div>
+<section id="input-view">
+<div class="hero"><div><p class="eyebrow">01 / 整理自己的經歷</p><h1>下一步，<br>從你的證據開始。</h1><p class="lead">先核對自己做了甚麼，再對照職位。<br>練習是選配，決定與選擇由你做。</p></div><aside class="hero-note"><p>整理經歷 → 逐項核對<br>對照 JD → 比較行動<br>確認計畫 → 成果與下一輪</p><span class="small">不產生能力總分、排名或錄取概率。</span></aside></div>
+<form id="analyze-form" class="panel">
+<div class="section-heading"><h2>把現有材料放在一起</h2><button id="fill-example" type="button" class="button-secondary">填入示例</button></div>
+<p id="example-note" class="sample-note" hidden>虛構 CV、JD 與行動，僅供測試；不是實際活動資訊。</p>
+<div class="two-columns"><label>CV／經歷文字 <span class="required">必填</span><textarea id="cv" required maxlength="20000" rows="10"></textarea></label>
+<label>目標職位 JD <span class="optional">可以稍後補</span><textarea id="jd" maxlength="20000" rows="10"></textarea></label></div>
+<div class="constraints"><label>可投入總時數<input id="hours" type="number" min="0" max="10000" step="any"></label><label>預算（HKD）<input id="budget" type="number" min="0" max="10000000" step="any"></label></div>
+<p class="hint">未知數值留空，0 才代表零。這一步整理整份 CV，不會先篩掉與 JD 無關的經歷。</p><button id="analyze-button" type="submit">整理我的經歷</button>
+</form></section>
+<section id="workspace" hidden>
+<nav class="steps" aria-label="流程"><a href="#profile-section">經歷核對</a><a href="#evidence-section">JD 對照</a><a href="#actions-section">比較與計畫</a><a href="#update-section">成果與下一輪</a></nav>
+<details id="legacy-profile-details"><summary>查看經歷與來源核對</summary><section id="profile-section" class="panel"><p class="eyebrow">B / 經歷與來源</p><div class="section-heading"><h2>逐項核對，而不是認證能力</h2><span id="profile-count" class="chip"></span></div>
+<p class="muted">原文是學生自述；整理描述與可能能力是 AI 推斷。確認只表示核對自己的陳述，作品摘錄仍未獨立核實。修改或排除只會讓受影響的對照過期，計畫與成果仍保留。</p>
+<div id="experience-cards" class="profile-grid"></div>
+</section>
+</details><section id="chat-section" class="panel" hidden><p class="eyebrow">選配 / CV 深入追問練習</p><h2>把一段經歷說清楚</h2>
+<p class="muted">一次一題，聚焦個人貢獻、方法與成果依據。不是完整面試或一般題庫；回答及回饋不會自動變成能力證據。</p>
+<div class="two-columns"><label>選擇 CV 經歷<select id="chat-experience"></select></label><label>本頁練習紀錄<select id="chat-history"><option value="">尚未開始</option></select></label></div>
+<button id="start-chat" type="button">開始新練習／切換經歷</button>
+<div id="chat-content" hidden><p id="chat-version" class="sample-note"></p><h3>本段 CV 原文</h3><blockquote id="chat-original" class="quote"></blockquote><div id="chat-turns" class="chat-feed"></div>
+<form id="chat-form"><label id="answer-label" for="chat-answer">回答目前問題</label><textarea id="chat-answer" maxlength="2000" required rows="4"></textarea><div class="toolbar"><button id="answer-button" type="submit">回答並繼續追問</button><button id="cancel-reanswer" type="button" class="button-secondary" hidden>取消重答</button></div></form>
+<p id="chat-limit" class="hint"></p><button id="chat-feedback" type="button" class="button-secondary">查看本段回饋／結束練習</button><div id="feedback-list"></div><div id="fact-cards"></div></div></section>
+<section id="evidence-section" class="panel"><p class="eyebrow">C / 對照職位</p><h2>已有支持、支持有限與證據缺口</h2>
+<form id="match-form"><label>目前 JD 文字<textarea id="jd-review" required maxlength="20000" rows="5"></textarea></label><div class="toolbar"><button id="match-button" type="submit">以已核對內容對照 JD</button><button id="cancel-jd" type="button" class="button-secondary">取消 JD 草稿</button></div></form>
+<p id="analysis-status" class="sample-note"></p><p class="hint">只使用已核對且未排除的內容；「未找到證據」不等於沒有能力。下列分組不是重要性排名。</p><div id="analysis-groups"></div></section>
+<section id="actions-section" class="panel"><p class="eyebrow">D / 比較下一步</p><h2>比較機會，也看清取捨</h2>
+<form id="settings-form"><div class="constraints"><label>目前可投入總時數<input id="current-hours" type="number" min="0" max="10000" step="any"></label><label>目前預算（HKD）<input id="current-budget" type="number" min="0" max="10000000" step="any"></label></div><button type="submit" class="button-secondary">保存限制（不呼叫 AI）</button><button id="cancel-limits" type="button" class="button-secondary">取消限制草稿</button></form>
+<p class="muted">2–3 個自填行動，依輸入順序呈現。Python 計算單項時間／成本限制；沒有能力分數或排名。</p>
+<form id="compare-form"><div class="toolbar"><button id="action-examples" type="button" class="button-secondary">使用三個虛構行動示例</button><button id="add-action" type="button" class="button-quiet">新增第三個行動</button><button id="next-round" type="button" class="button-secondary">開始下一輪候選行動</button></div><div id="action-editors" class="action-grid"></div><button id="compare-button" type="submit">比較這些行動</button></form>
+<p id="comparison-status" class="sample-note"></p><div id="comparisons" class="action-grid comparison-grid"></div><button id="choose-none" class="button-secondary" type="button">全部不適合・返回調整</button>
+<section id="choice-section" hidden><h3>核對下一步計畫</h3><p id="plan-draft-label"></p><form id="plan-form"><label>選擇原因<textarea id="choice-reason" maxlength="4000" rows="2"></textarea></label><label>開始動作<textarea id="plan-step" maxlength="1200" required rows="2"></textarea></label><label>打算提交的成果材料（每行一項，最多六項）<textarea id="plan-materials" required rows="3"></textarea></label><div class="toolbar"><button type="submit">確認下一步計畫</button><button id="save-plan-draft" type="button" class="button-secondary">保存計畫草稿</button></div></form><p class="hint">不可參加或明確超限不能確認；未知條件只能保存為待確認。確認計畫不增加證據。</p></section>
+<h3>本頁已記錄計畫</h3><div id="plan-list"></div></section>
+<section id="update-section" class="panel"><p class="eyebrow">E / 實際成果與下一輪</p><h2>部分完成，也能如實補充</h2>
+<p class="muted">可連結已確認計畫，也可直接補充其他既有成果，不必先比較行動。進度是學生自述，不是能力認證。</p>
+<form id="update-form"><label>新增或修改成果<select id="outcome-editor"></select></label>
+<div class="two-columns"><label>關聯計畫<select id="outcome-plan"></select></label><label>自述進度<select id="outcome-progress"><option value="in_progress">進行中</option><option value="partial" selected>部分完成</option><option value="completed">已完成</option></select></label></div>
+<div class="two-columns"><label>實際做了甚麼<textarea id="work-done" required maxlength="4000" rows="3"></textarea></label><label>自己的實際貢獻<textarea id="contribution" required maxlength="4000" rows="3"></textarea></label></div>
+<label>成果文字／材料摘錄<textarea id="materials-excerpt" required maxlength="6000" rows="4" placeholder="沒有材料可如實說明；不讀取連結、不解析檔案。"></textarea></label>
+<label class="check-label"><input id="outcome-withdrawn" type="checkbox">撤回這份成果，停止作為支持來源（保留紀錄）</label>
+<p class="hint">提交表示核對自己的陳述；不是第三方核實。更新需要的模型步驟全部成功後才套用。</p><button id="update-button" type="submit">提交成果並更新對照</button></form>
+<div id="outcome-list"></div><section id="changes-section" hidden><h3>最近一次有效前後比較</h3><p id="changes-context" class="hint"></p><div id="changes"></div></section></section>
+</section>
+<footer>Finance Career Evidence MVP <span>材料可核對，決定由你做。</span></footer>
+</main>
+<template id="action-template"><article class="action-editor"><div class="card-top"><h3></h3><button class="remove-action button-quiet" type="button">移除</button></div><label>行動名稱<input data-field="name" required maxlength="160"></label><label>實際內容描述<textarea data-field="description" required maxlength="4000" rows="3"></textarea></label><div class="two-columns compact"><label>總時數<input data-field="hours" type="number" min="0" max="10000" step="any"></label><label>費用（HKD）<input data-field="cost_hkd" type="number" min="0" max="10000000" step="any"></label></div><label>是否可參加<select data-field="availability"><option value="未知">未知</option><option value="可以">可以</option><option value="不可以">不可以</option></select></label></article></template>
+</body></html>

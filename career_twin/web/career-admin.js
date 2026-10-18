@@ -1,0 +1,23 @@
+"use strict";
+(() => {
+const $=id=>document.getElementById(id),el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
+let current=null,busy=false;
+function message(text,bad=false){const n=$(bad?'admin-error':'admin-notice');n.textContent=text;n.hidden=!text;}
+function download(value,name){const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)+'\n'],{type:'application/json;charset=utf-8'})),a=el('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);}
+function cards(jobs,quotes){return jobs.map(j=>{const card=el('article',undefined,'career-item');card.append(el('h3',j.title+(j.location?' · '+j.location:'')));for(const r of j.requirements){const row=el('div',undefined,'condition');row.append(el('strong',(r.required?'必要條件 · ':'加分條件 · ')+r.description));if(quotes)row.append(el('blockquote',r.quote,'quote'));card.append(row);}if(quotes){const d=el('details');d.append(el('summary','核對完整來源'),el('pre',j.jd));card.append(d);}return card;});}
+function render(){const published=current?.published,draft=current?.draft;document.querySelectorAll('button,input,textarea').forEach(n=>n.disabled=busy);$('download-published').disabled=busy||!published;$('admin-publish').disabled=busy||!draft;$('admin-preview').disabled=busy||!current;$('preview-panel').hidden=!draft;
+ $('published-status').textContent=!current?(busy?'正在讀取…':'目前發布版本尚未讀取，請重新讀取。'):published?`${published.jobs.length} 個職類 · 發布於 ${new Date(published.updated_at).toLocaleString('zh-HK')} · 版本 ${published.revision}`:'目前尚未發布最低要求。';$('published-list').replaceChildren(...cards(published?.jobs||[],false));
+ $('admin-history').replaceChildren(...(current?.history||[]).map(h=>{const box=el('p');box.append(el('span',`${new Date(h.updated_at).toLocaleString('zh-HK')} · ${h.count} 個職類 `));const b=el('button','下載此版本','button-quiet');b.type='button';b.disabled=busy;b.addEventListener('click',async()=>{const r=await request('/versions/'+encodeURIComponent(h.revision));if(r)download(r.jobs,'minimum-requirements-'+h.revision+'.json');});box.append(b);return box;}));
+ if(draft){$('preview-status').textContent=`將發布 ${draft.jobs.length} 個職類；請核對以下條件。`;const before=new Map((published?.jobs||[]).map(j=>[j.id,j.version])),after=new Set(draft.jobs.map(j=>j.id));$('preview-changes').textContent=`新增 ${draft.jobs.filter(j=>!before.has(j.id)).length} · 修改 ${draft.jobs.filter(j=>before.has(j.id)&&before.get(j.id)!==j.version).length} · 移除 ${[...before.keys()].filter(id=>!after.has(id)).length}。過往發布版本保留。`;$('admin-preview-list').replaceChildren(...cards(draft.jobs,true));}
+}
+async function request(path='',body){if(busy)return null;busy=true;message('');message('',true);render();try{const r=await window.CareerFetch('/api/admin/minimum-requirements'+path,{method:body?'POST':'GET',headers:body?{'Content-Type':'application/json','X-Career-Admin':'1'}:{},body:body?JSON.stringify(body):undefined,cache:'no-store'});const data=await r.json();if(!r.ok)throw new Error(data.error?.message||'操作未完成，請重試。');return data;}catch(e){message(e.message,true);return null;}finally{busy=false;render();}}
+async function reload(){const r=await request();if(r){current=r;render();}}
+$('admin-reload').addEventListener('click',reload);
+$('admin-file').addEventListener('change',async()=>{const file=$('admin-file').files[0];if(!file)return;if(file.size>600000){message('JSON 檔案最多 600 KB。',true);return;}$('admin-json').value=await file.text();message('已讀取檔案；請產生預覽。');});
+$('download-template').addEventListener('click',()=>download([{title:'',location:'Hong Kong',jd:'',url:null}],'minimum-requirements-template.json'));
+$('download-published').addEventListener('click',()=>download(current.published.jobs,'minimum-requirements-'+current.published.revision+'.json'));
+$('admin-preview').addEventListener('click',async()=>{if(!current)return;let jobs;try{jobs=JSON.parse($('admin-json').value);if(!Array.isArray(jobs))throw new Error();}catch{message('請提供有效的 JSON 陣列。',true);return;}const r=await request('/preview',{jobs,expected_generation:current.generation});if(r){current=r;render();message('預覽已保存，已發布資料尚未改動。');$('preview-panel').scrollIntoView({block:'start'});}});
+$('admin-publish').addEventListener('click',async()=>{if(!current?.draft)return;const r=await request('/publish',{expected_generation:current.generation});if(r){current=r;render();message('已發布新版本。使用者下次整理 CV 或進入比對頁會自動讀取。');}});
+$('admin-cancel-preview').addEventListener('click',async()=>{if(!current)return;const r=await request('/cancel-preview',{expected_generation:current.generation});if(r){current=r;render();message('已取消預覽，已發布版本保留。');}});
+reload();
+})();
